@@ -51,10 +51,7 @@ Development library for the libhsakmt (HSA thunk) libraries for AMD KFD
 %autosetup -n  ROCT-Thunk-Interface-rocm-%{rocm_version} -p1
 
 %build
-%cmake -B build \
-    -Wno-dev \
-    -S "." \
-    -DBUILD_SHARED_LIBS=ON
+%cmake -DBUILD_SHARED_LIBS=ON
 %make_build
 
 %install
