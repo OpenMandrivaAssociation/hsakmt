@@ -13,7 +13,7 @@
 %define rel     1
 Name:           hsakmt
 Version:        %{lib_major}.%{lib_minor}.%{lib_patch}
-Release:        %mkrel -c %{rocm_version} %{rel}
+Release:        %{rocm_version}.%{rel}
 Summary:        AMD HSA thunk library
 Group:          System/Libraries
 License:        MIT
@@ -22,8 +22,6 @@ Source0:        https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/archiv
 Patch1:         hsakmt-pkg-conf.patch
 Patch2:         hsakmt-global-visibility.patch
 
-# Mageia builds AMD HSA kernel support for these 64bit targets:
-ExclusiveArch:  x86_64 aarch64
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(libpci)
 BuildRequires:  pkgconfig(libdrm_amdgpu)
@@ -57,10 +55,10 @@ Development library for the libhsakmt (HSA thunk) libraries for AMD KFD
     -Wno-dev \
     -S "." \
     -DBUILD_SHARED_LIBS=ON
-%cmake_build
+%make_build
 
 %install
-%cmake_install
+%make_install -C build
 
 echo '%{_libdir}' > %{name}.conf
 install -Dm644 %{name}.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
